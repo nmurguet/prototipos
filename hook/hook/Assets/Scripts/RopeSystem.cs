@@ -111,6 +111,8 @@ public class RopeSystem : MonoBehaviour {
 		HandleInput(aimDirection);
 		UpdateRopePositions();
 		HandleRopeLength();
+		HandleRopeUnwrap();
+
 	}
 
 
@@ -281,5 +283,91 @@ public class RopeSystem : MonoBehaviour {
 	private void OnTriggerExit2D(Collider2D colliderOnExit)
 	{
 		isColliding = false;
+	}
+
+	private void HandleRopeUnwrap()
+	{
+		if (ropePositions.Count <= 1)
+		{
+			return;
+		}
+
+		// Hinge = next point up from the player position
+		// Anchor = next point up from the Hinge
+		// Hinge Angle = Angle between anchor and hinge
+		// Player Angle = Angle between anchor and player
+
+		// 1
+		var anchorIndex = ropePositions.Count - 2;
+		// 2
+		var hingeIndex = ropePositions.Count - 1;
+		// 3
+		var anchorPosition = ropePositions[anchorIndex];
+		// 4
+		var hingePosition = ropePositions[hingeIndex];
+		// 5
+		var hingeDir = hingePosition - anchorPosition;
+		// 6
+		var hingeAngle = Vector2.Angle(anchorPosition, hingeDir);
+		// 7
+		var playerDir = playerPosition - anchorPosition;
+		// 8
+		var playerAngle = Vector2.Angle(anchorPosition, playerDir);
+
+		if (!wrapPointsLookup.ContainsKey(hingePosition))
+		{
+			Debug.LogError("We were not tracking hingePosition (" + hingePosition + ") in the look up dictionary.");
+			return;
+		}
+
+
+		if (playerAngle < hingeAngle)
+		{
+			// 1
+			if (wrapPointsLookup[hingePosition] == 1)
+			{
+				UnwrapRopePosition(anchorIndex, hingeIndex);
+				return;
+			}
+
+			// 2
+			wrapPointsLookup[hingePosition] = -1;
+		}
+		else
+		{
+			// 3
+			if (wrapPointsLookup[hingePosition] == -1)
+			{
+				UnwrapRopePosition(anchorIndex, hingeIndex);
+				return;
+			}
+
+			// 4
+			wrapPointsLookup[hingePosition] = 1;
+		}
+
+
+	}
+
+
+	private void UnwrapRopePosition(int anchorIndex, int hingeIndex)
+	{
+		// 1
+		var newAnchorPosition = ropePositions[anchorIndex];
+		wrapPointsLookup.Remove(ropePositions[hingeIndex]);
+		ropePositions.RemoveAt(hingeIndex);
+
+		// 2
+		ropeHingeAnchorRb.transform.position = newAnchorPosition;
+		distanceSet = false;
+
+		// Set new rope distance joint distance for anchor position if not yet set.
+		if (distanceSet)
+		{
+			return;
+		}
+		ropeJoint.distance = Vector2.Distance(transform.position, newAnchorPosition);
+		distanceSet = true;
+
 	}
 }
