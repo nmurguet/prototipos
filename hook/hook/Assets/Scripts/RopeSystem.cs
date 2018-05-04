@@ -33,7 +33,7 @@ public class RopeSystem : MonoBehaviour {
 	private Dictionary<Vector2, int> wrapPointsLookup = new Dictionary<Vector2, int>();
 
 	public float climbSpeed = 3f;
-	private bool isColliding;
+	public bool isColliding;
 
 
 
@@ -47,6 +47,13 @@ public class RopeSystem : MonoBehaviour {
 		ropeHingeAnchorRb = ropeHingeAnchor.GetComponent<Rigidbody2D>();
 		ropeHingeAnchorSprite = ropeHingeAnchor.GetComponent<SpriteRenderer>();
 	}
+
+	void FixedUpdate()
+	{
+
+
+	}
+
 
 	void Update()
 	{
@@ -109,9 +116,11 @@ public class RopeSystem : MonoBehaviour {
 
 
 		HandleInput(aimDirection);
-		UpdateRopePositions();
 		HandleRopeLength();
+		UpdateRopePositions();
+
 		HandleRopeUnwrap();
+
 
 	}
 
@@ -275,15 +284,16 @@ public class RopeSystem : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerStay2D(Collider2D colliderStay)
+	void OnCollisionStay2D(Collision2D colliderStay)
 	{
 		isColliding = true;
 	}
 
-	private void OnTriggerExit2D(Collider2D colliderOnExit)
+	void OnCollisionExit2D(Collision2D colliderOnExit)
 	{
 		isColliding = false;
 	}
+
 
 	private void HandleRopeUnwrap()
 	{
