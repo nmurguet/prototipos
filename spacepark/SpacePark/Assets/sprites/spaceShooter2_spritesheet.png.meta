@@ -4,6 +4,11 @@ TextureImporter:
   fileIDToRecycleName:
     21300000: ship1
     21300002: borders
+    21300004: satellite1
+    21300006: satellite2
+    21300008: base1
+    21300010: crate
+    21300012: bullet
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -143,6 +148,106 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ea005a2e52a8c4746a7bc2a252973446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: satellite1
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 394
+        width: 172
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60f21621ecf96f34cbe50c9293ab08f4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: satellite2
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 354
+        width: 172
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d766db817864e1498018552a9009914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 734
+        width: 276
+        height: 400
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 915310a4a17ade94c870b7639010381e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crate
+      rect:
+        serializedVersion: 2
+        x: 668
+        y: 903
+        width: 82
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa36be1a8336e484292a96a275e0fc07
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bullet
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 89
+        width: 12
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d7ac1c59868a424db6cafb965e908ed
       vertices: []
       indices: 
       edges: []
