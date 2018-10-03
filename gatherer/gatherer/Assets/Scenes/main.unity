@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 716910567}
   - component: {fileID: 716910566}
   - component: {fileID: 716910568}
+  - component: {fileID: 716910565}
   m_Layer: 0
   m_Name: worker
   m_TagString: Untagged
@@ -282,6 +283,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &716910565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 716910564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04805cc033008ef4491191e4c124817f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldNodeTransform: {fileID: 1341341432}
+  storageTransform: {fileID: 567462938}
 --- !u!212 &716910566
 SpriteRenderer:
   m_ObjectHideFlags: 0
