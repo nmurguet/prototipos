@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public CharacterController2D controller; 
 
+
 	public Animator animator;
 
 	public float runSpeed = 40f; 
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	bool jump = false; 
 	bool crouch = false; 
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,24 +30,31 @@ public class PlayerMovement : MonoBehaviour {
 			animator.SetBool ("isJumping", jump);
 
 
+
 		}
 		if (Input.GetButtonDown ("Crouch")) {
 			crouch = true; 
 		} else if (Input.GetButtonUp ("Crouch")) {
 			crouch = false; 
 		}
+
+
 	}
 
 
 	public void OnLanding()
 	{
 		animator.SetBool ("isJumping", false);
+
+
 	}
 
 	public void OnCrouching(bool isCrouching)
 	{
 		animator.SetBool ("isCrouching", isCrouching);
 	}
+
+
 
 
 	void FixedUpdate()
