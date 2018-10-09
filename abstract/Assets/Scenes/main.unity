@@ -2950,6 +2950,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 968810919}
   animator: {fileID: 968810923}
+  Player_red: {fileID: 9100000, guid: e221c93c52dd63e469fa9f6025071893, type: 2}
+  Player_green: {fileID: 9100000, guid: 2fa203406a7a84d44a4965aba38ebc3f, type: 2}
   runSpeed: 25
 --- !u!95 &968810923
 Animator:

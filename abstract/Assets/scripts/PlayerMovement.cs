@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	public Animator animator;
 
+	public RuntimeAnimatorController Player_red;
+	public RuntimeAnimatorController Player_green;
+
 	public float runSpeed = 40f; 
 	float horizontalMove = 0f;
 
@@ -23,6 +26,14 @@ public class PlayerMovement : MonoBehaviour {
 
 		animator.SetFloat ("Speed",Mathf.Abs(horizontalMove));
 
+		if(Input.GetKeyDown(KeyCode.Q)){
+			Debug.Log ("pasa algo?");
+			animator.runtimeAnimatorController = Player_red;
+		}
+		if(Input.GetKeyDown(KeyCode.E)){
+			animator.runtimeAnimatorController = Player_green;
+		}
+			
 
 		if (Input.GetButtonDown ("Jump")) {
 			
