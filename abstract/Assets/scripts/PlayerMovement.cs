@@ -18,6 +18,23 @@ public class PlayerMovement : MonoBehaviour {
 	bool jump = false; 
 	bool crouch = false; 
 
+	public bool jumpCount;
+	public bool floating;
+
+	float storeGrav; 
+	float changeGrav = 0.5f; 
+
+	public Rigidbody2D rb; 
+
+
+	void Start()
+	{
+		jumpCount = false;
+		floating = false;
+
+		storeGrav = rb.gravityScale; 
+	}
+
 	
 	// Update is called once per frame
 	void Update () {
@@ -36,10 +53,19 @@ public class PlayerMovement : MonoBehaviour {
 			
 
 		if (Input.GetButtonDown ("Jump")) {
-			
+
+			if (floating) {
+				jumpCount = true;
+
+			}
+
 			jump = true;
 			animator.SetBool ("isJumping", jump);
+			if (jumpCount && !controller.m_Grounded) {
+				rb.gravityScale = changeGrav;
+				animator.SetBool ("isFloating", jumpCount);
 
+			}
 
 
 		}
@@ -49,6 +75,19 @@ public class PlayerMovement : MonoBehaviour {
 			crouch = false; 
 		}
 
+		if (Input.GetButtonUp ("Jump")) {
+			if (!jumpCount && !controller.m_Grounded ) {
+				jumpCount = true;
+				floating = true;
+			} else {
+				jumpCount = false;
+				rb.gravityScale = storeGrav;
+				animator.SetBool ("isFloating", jumpCount);
+			}
+
+
+		}
+
 
 	}
 
@@ -56,7 +95,10 @@ public class PlayerMovement : MonoBehaviour {
 	public void OnLanding()
 	{
 		animator.SetBool ("isJumping", false);
-
+		jumpCount = false; 
+		floating = false; 
+		rb.gravityScale = storeGrav;
+		animator.SetBool ("isFloating", jumpCount);
 
 	}
 
