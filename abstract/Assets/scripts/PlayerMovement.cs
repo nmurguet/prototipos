@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -26,8 +27,10 @@ public class PlayerMovement : MonoBehaviour {
 	float storeGrav; 
 	float changeGrav = 0.2f; 
 
-	public Rigidbody2D rb; 
+	public Rigidbody2D rb;
+    public Button jumpButton;
 
+    public bool enabledButton;
 
 	void Start()
 	{
@@ -37,9 +40,23 @@ public class PlayerMovement : MonoBehaviour {
 		storeGrav = rb.gravityScale; 
 	}
 
-	
-	// Update is called once per frame
-	void Update () {
+    public void JumpButtonDown()
+    {
+        enabledButton = true; 
+
+
+    }
+
+    public void JumpButtonUp()
+    {
+        enabledButton = false;
+
+
+    }
+
+
+    // Update is called once per frame
+    void Update () {
 		
 		//KEYBOARD CODE
 		//horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
@@ -72,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 			
 
-		if (Input.GetButtonDown ("Jump")||verticalMove>= 0.6f) {
+		if (Input.GetButtonDown ("Jump")|| enabledButton) {
 
 			if (floating) {
 				jumpCount = true;
@@ -95,7 +112,7 @@ public class PlayerMovement : MonoBehaviour {
 			crouch = false; 
 		}
 
-        if (Input.GetButtonUp("Jump") || verticalMove >= 0.6f) {
+        if (Input.GetButtonUp("Jump") || !enabledButton) {
 			if (!jumpCount && !controller.m_Grounded ) {
 				jumpCount = true;
 				floating = true;
