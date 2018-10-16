@@ -42,9 +42,9 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
 		
 		//KEYBOARD CODE
-		horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
+		//horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
 		//horizontalMove = stick.Horizontal * runSpeed;
-		/*if (stick.Horizontal >= .2f) {
+		if (stick.Horizontal >= .2f) {
 			horizontalMove = runSpeed;
 
 		} else if (stick.Horizontal <= -.2f) {
@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 		float verticalMove = stick.Vertical;
-		*/
+		
 
 
 
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 			
 
-		if (Input.GetButtonDown ("Jump")) {
+		if (Input.GetButtonDown ("Jump")||verticalMove>= 0.6f) {
 
 			if (floating) {
 				jumpCount = true;
@@ -95,7 +95,7 @@ public class PlayerMovement : MonoBehaviour {
 			crouch = false; 
 		}
 
-		if (Input.GetButtonUp ("Jump")) {
+        if (Input.GetButtonUp("Jump") || verticalMove >= 0.6f) {
 			if (!jumpCount && !controller.m_Grounded ) {
 				jumpCount = true;
 				floating = true;
