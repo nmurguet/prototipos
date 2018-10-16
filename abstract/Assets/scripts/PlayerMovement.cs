@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public Animator animator;
 
+	public Joystick stick;
+
 	public RuntimeAnimatorController Player_red;
 	public RuntimeAnimatorController Player_green;
 
@@ -22,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
 	public bool floating;
 
 	float storeGrav; 
-	float changeGrav = 0.5f; 
+	float changeGrav = 0.2f; 
 
 	public Rigidbody2D rb; 
 
@@ -38,8 +40,26 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
+		//KEYBOARD CODE
 		horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
+		//horizontalMove = stick.Horizontal * runSpeed;
+		/*if (stick.Horizontal >= .2f) {
+			horizontalMove = runSpeed;
+
+		} else if (stick.Horizontal <= -.2f) {
+
+			horizontalMove = -runSpeed;
+		} else {
+
+			horizontalMove = 0f;
+		}
+
+
+		float verticalMove = stick.Vertical;
+		*/
+
+
 
 		animator.SetFloat ("Speed",Mathf.Abs(horizontalMove));
 
@@ -87,6 +107,13 @@ public class PlayerMovement : MonoBehaviour {
 
 
 		}
+
+		//END OF KEYBOARD CODE
+
+
+
+
+
 
 
 	}
