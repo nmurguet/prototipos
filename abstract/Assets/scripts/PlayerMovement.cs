@@ -30,12 +30,15 @@ public class PlayerMovement : MonoBehaviour {
 	public Rigidbody2D rb;
     public Button jumpButton;
 
+	public bool jumping; 
+
     public bool enabledButton;
 
 	void Start()
 	{
 		jumpCount = false;
 		floating = false;
+		jumping = false; 
 
 		storeGrav = rb.gravityScale; 
 	}
@@ -43,6 +46,7 @@ public class PlayerMovement : MonoBehaviour {
     public void JumpButtonDown()
     {
         enabledButton = true; 
+		jumping = true; 
 
 
     }
@@ -50,7 +54,7 @@ public class PlayerMovement : MonoBehaviour {
     public void JumpButtonUp()
     {
         enabledButton = false;
-
+		jumping = false; 
 
     }
 
@@ -89,7 +93,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 			
 
-		if (Input.GetButtonDown ("Jump")|| enabledButton) {
+		if (Input.GetButtonDown ("Jump")||(enabledButton)) {
 
 			if (floating) {
 				jumpCount = true;
