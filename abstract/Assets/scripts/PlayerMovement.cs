@@ -65,10 +65,10 @@ public class PlayerMovement : MonoBehaviour {
 		//KEYBOARD CODE
 		//horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
 		//horizontalMove = stick.Horizontal * runSpeed;
-		if (stick.Horizontal >= .2f) {
+		if (stick.Horizontal >= .4f) {
 			horizontalMove = runSpeed;
 
-		} else if (stick.Horizontal <= -.2f) {
+		} else if (stick.Horizontal <= -.4f) {
 
 			horizontalMove = -runSpeed;
 		} else {
