@@ -7183,7 +7183,7 @@ GameObject:
   - component: {fileID: 968810924}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7418,7 +7418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 1836315630}
-  bulletPrefab: {fileID: 1063811840707702, guid: 77f6443692954034395edec34cdfa011,
+  bulletPrefab: {fileID: 1512868365356810, guid: fb249de6cf17f464293073d39d8d3f39,
     type: 2}
 --- !u!1 &1063911594
 GameObject:
@@ -7642,7 +7642,7 @@ GameObject:
   - component: {fileID: 1319581991}
   - component: {fileID: 1319581990}
   - component: {fileID: 1319581994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
