@@ -26,6 +26,8 @@ public class Bullet : MonoBehaviour {
 		EnemyWalker enemy = hitInfo.GetComponent<EnemyWalker> ();
 		if (enemy != null) {
 			enemy.TakeDamage (damage);
+			Vector2 m_NewForce = new Vector2(rb.velocity.x/4f, 1.5f);
+			enemy.GetComponent<Rigidbody2D> ().AddForce (m_NewForce,ForceMode2D.Impulse);
 
 		}
 

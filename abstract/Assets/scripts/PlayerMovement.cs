@@ -45,8 +45,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public void JumpButtonDown()
     {
-        enabledButton = true; 
 		jumping = true; 
+		enabledButton = true; 
+
 
 
     }
@@ -63,9 +64,9 @@ public class PlayerMovement : MonoBehaviour {
     void Update () {
 		
 		//KEYBOARD CODE
-		//horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
+		horizontalMove = Input.GetAxisRaw ("Horizontal") * runSpeed;
 		//horizontalMove = stick.Horizontal * runSpeed;
-		if (stick.Horizontal >= .4f) {
+		/*if (stick.Horizontal >= .4f) {
 			horizontalMove = runSpeed;
 
 		} else if (stick.Horizontal <= -.4f) {
@@ -76,7 +77,7 @@ public class PlayerMovement : MonoBehaviour {
 			horizontalMove = 0f;
 		}
 
-
+		*/
 		float verticalMove = stick.Vertical;
 		
 
@@ -101,6 +102,7 @@ public class PlayerMovement : MonoBehaviour {
 			}
 
 			jump = true;
+
 			animator.SetBool ("isJumping", jump);
 			if (jumpCount && !controller.m_Grounded) {
 				rb.gravityScale = changeGrav;

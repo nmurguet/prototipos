@@ -6,6 +6,7 @@ public class EnemyWalker : MonoBehaviour {
 
 	public int health = 100; 
 	public GameObject deathEffect; 
+	public GameObject deathBody;
 
 	// Use this for initialization
 	public void TakeDamage(int damage)
@@ -21,6 +22,7 @@ public class EnemyWalker : MonoBehaviour {
 	void Die()
 	{
 		Instantiate(deathEffect, transform.position, Quaternion.identity);
+		Instantiate(deathBody, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 
 	}
