@@ -22,7 +22,8 @@ public class EnemyWalker : MonoBehaviour {
 	void Die()
 	{
 		Instantiate(deathEffect, transform.position, Quaternion.identity);
-		Instantiate(deathBody, transform.position, Quaternion.identity);
+        Quaternion spawnRotation = Quaternion.Euler(0, 0, 90);
+        Instantiate(deathBody, transform.position, spawnRotation);
 		Destroy(gameObject);
 
 	}
