@@ -7181,6 +7181,7 @@ GameObject:
   - component: {fileID: 968810922}
   - component: {fileID: 968810923}
   - component: {fileID: 968810924}
+  - component: {fileID: 968810925}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -7265,7 +7266,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2.3
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1ad7c9921e4409744a870c5135c5b112, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -7276,7 +7277,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 968810915}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31cd44baa2836284eb3fa085782388fd, type: 3}
   m_Name: 
@@ -7371,7 +7372,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 968810915}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a95a7058e678c94da0ee6706d8c4a21, type: 3}
   m_Name: 
@@ -7420,6 +7421,28 @@ MonoBehaviour:
   firePoint: {fileID: 1836315630}
   bulletPrefab: {fileID: 1512868365356810, guid: fb249de6cf17f464293073d39d8d3f39,
     type: 2}
+--- !u!114 &968810925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 968810915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c3796469c0cb84ba3b185b0c6c5b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  jumpForce: 8
+  animator: {fileID: 968810923}
+  stick: {fileID: 0}
+  rb: {fileID: 0}
+  groundCheck: {fileID: 1489554263}
+  checkRadius: 0.5
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  extraJumpsValue: 1
 --- !u!1 &1063911594
 GameObject:
   m_ObjectHideFlags: 0
