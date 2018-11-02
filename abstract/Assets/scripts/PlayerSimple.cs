@@ -25,6 +25,7 @@ public class PlayerSimple : MonoBehaviour {
 
     private int extraJumps;
     public int extraJumpsValue; 
+	public bool jumpPressed;
 
 
     // Use this for initialization
@@ -36,14 +37,45 @@ public class PlayerSimple : MonoBehaviour {
 
 		
 	}
+
+	public void buttonJumpDown()
+	{
+		jumpPressed = true; 
+		if (extraJumps > 0) {
+			rb.velocity = Vector2.up * jumpForce;
+			extraJumps--;
+		} else if (extraJumps == 0 && isGrounded) {
+
+			rb.velocity = Vector2.up * jumpForce;
+		}
+
+	}
+	public void buttonJumpUp()
+	{
+		jumpPressed = false; 
+
+	}
 	
 	// Update is called once per frame
 	void Update () {
-        moveInput = Input.GetAxisRaw("Horizontal");
+        //moveInput = Input.GetAxisRaw("Horizontal");
+		if (stick.Horizontal >= .4f) {
+			moveInput = 1;
+
+		} else if (stick.Horizontal <= -.4f) {
+
+			moveInput = -1;
+		} else {
+
+			moveInput = 0f;
+		}
+
+
+
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         animator.SetBool("isJumping", !isGrounded);
 
-        if (Input.GetKeyDown(KeyCode.W) && extraJumps > 0)
+		if (Input.GetKeyDown(KeyCode.W)&& extraJumps > 0)
         {
             rb.velocity = Vector2.up * jumpForce;
             extraJumps--;
@@ -69,6 +101,11 @@ public class PlayerSimple : MonoBehaviour {
    void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+
+
+
+
+
 
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 

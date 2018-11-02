@@ -7432,10 +7432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c3796469c0cb84ba3b185b0c6c5b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 4
   jumpForce: 8
   animator: {fileID: 968810923}
-  stick: {fileID: 0}
+  stick: {fileID: 2036986732}
   rb: {fileID: 0}
   groundCheck: {fileID: 1489554263}
   checkRadius: 0.5
@@ -7443,6 +7443,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   extraJumpsValue: 1
+  jumpPressed: 0
 --- !u!1 &1063911594
 GameObject:
   m_ObjectHideFlags: 0
@@ -8336,8 +8337,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 968810922}
-          m_MethodName: JumpButtonDown
+        - m_Target: {fileID: 968810925}
+          m_MethodName: buttonJumpDown
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -8353,8 +8354,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 968810922}
-          m_MethodName: JumpButtonUp
+        - m_Target: {fileID: 968810925}
+          m_MethodName: buttonJumpUp
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
