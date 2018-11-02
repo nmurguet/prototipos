@@ -7444,6 +7444,10 @@ MonoBehaviour:
     m_Bits: 1024
   extraJumpsValue: 1
   jumpPressed: 0
+  keyboard: 1
+  dashSpeed: 50
+  startDashTime: 0.01
+  canDash: 0
 --- !u!1 &1063911594
 GameObject:
   m_ObjectHideFlags: 0

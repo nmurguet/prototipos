@@ -27,13 +27,22 @@ public class PlayerSimple : MonoBehaviour {
     public int extraJumpsValue; 
 	public bool jumpPressed;
 
+    public bool keyboard = false;
+
+// DASH
+    public float dashSpeed;
+    private float dashTime;
+    public float startDashTime;
+    public bool canDash; 
+
 
     // Use this for initialization
     void Start () {
         extraJumps = extraJumpsValue;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        dashTime = startDashTime;
+        canDash = true; 
 
 		
 	}
@@ -58,8 +67,11 @@ public class PlayerSimple : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //moveInput = Input.GetAxisRaw("Horizontal");
-		if (stick.Horizontal >= .4f) {
+
+        if (keyboard) { 
+        moveInput = Input.GetAxisRaw("Horizontal");
+        }else { 
+        if (stick.Horizontal >= .4f) {
 			moveInput = 1;
 
 		} else if (stick.Horizontal <= -.4f) {
@@ -69,6 +81,7 @@ public class PlayerSimple : MonoBehaviour {
 
 			moveInput = 0f;
 		}
+        }
 
 
 
@@ -94,6 +107,45 @@ public class PlayerSimple : MonoBehaviour {
 
 
         }
+        
+
+        //Codigo del dash
+        if (canDash && Input.GetKeyDown(KeyCode.E))
+        {
+            
+            canDash = false;
+            
+                
+
+        }
+        if(!canDash)
+        {
+            if (dashTime <= 0) // tiene que terminar el dash
+            {
+                canDash = true;
+                dashTime = startDashTime;
+                rb.velocity = Vector2.zero;
+            }
+            else
+            {
+                dashTime -= Time.deltaTime;
+                if (facingRight)
+                {
+                    rb.velocity = new Vector2(1f * dashSpeed, 0f);
+
+                }
+                else
+                {
+                    rb.velocity = Vector2.left * dashSpeed;
+                }
+            }
+
+            // fin del codigo del dash
+
+
+
+        }
+
 
     }
 
@@ -106,9 +158,9 @@ public class PlayerSimple : MonoBehaviour {
 
 
 
-
+        if (canDash) { 
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-
+        }
         if (!facingRight && moveInput > 0)
         {
             Flip();
