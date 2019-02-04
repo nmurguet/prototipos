@@ -1815,6 +1815,7 @@ GameObject:
   - component: {fileID: 930447108}
   - component: {fileID: 930447107}
   - component: {fileID: 930447110}
+  - component: {fileID: 930447111}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -1993,6 +1994,25 @@ MonoBehaviour:
   dashSpeed: 8
   startDashTime: 0.05
   canDash: 0
+--- !u!114 &930447111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930447103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebeeecb4eb5ad8149a9ee9e874db57d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startTimeBtwAttack: 0
+  attackPos: {fileID: 0}
+  attackRange: 0
+  whatisEnemy:
+    serializedVersion: 2
+    m_Bits: 0
+  damage: 0
 --- !u!1 &941368662
 GameObject:
   m_ObjectHideFlags: 0

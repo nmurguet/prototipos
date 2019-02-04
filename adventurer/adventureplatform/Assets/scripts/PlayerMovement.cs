@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
 	private bool doublejump;
 
 
-
 	// DASH
 	public float dashSpeed;
 	private float dashTime;
@@ -42,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
 		animator = GetComponent<Animator>();
 		dashTime = startDashTime;
 		canDash = true; 
-		doublejump = false; 
+		doublejump = false;
+        
         
     }
 
@@ -50,9 +50,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 		moveInput = Input.GetAxisRaw("Horizontal");
-
-
-
+        
 
 		if (Input.GetKeyDown(KeyCode.W)&& extraJumps > 0)
 		{
