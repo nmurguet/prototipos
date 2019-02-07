@@ -52,7 +52,21 @@ public class PlayerMovement : MonoBehaviour
 		moveInput = Input.GetAxisRaw("Horizontal");
         
 
-		if (Input.GetKeyDown(KeyCode.W)&& extraJumps > 0)
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            animator.SetTrigger("attack2");
+
+
+        }
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            animator.ResetTrigger("attack2");
+
+
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.W)&& extraJumps > 0)
 		{
 
 			rb.velocity = new Vector2 (rb.velocity.x, jumpForce);
