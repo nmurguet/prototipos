@@ -25,6 +25,12 @@ public class Player : MonoBehaviour
 
 
 
+    //emitters
+    public ParticleSystem left_emitter;
+    public ParticleSystem right_emitter;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,15 +69,30 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             rb.AddForceAtPosition(left_rocket.transform.up * thrust, left_rocket.transform.position);
-
-
+            left_emitter.Play();
+            
 
         }
 
         if (Input.GetKey(KeyCode.P))
         {
             rb.AddForceAtPosition(right_rocket.transform.up * thrust, right_rocket.transform.position);
+            right_emitter.Play();
 
+        }
+
+
+        if (Input.GetKeyUp(KeyCode.Q))
+        {
+            left_emitter.Stop();
+
+
+        }
+
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+
+            right_emitter.Stop();
 
         }
     }
