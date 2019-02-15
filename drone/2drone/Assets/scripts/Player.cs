@@ -28,6 +28,9 @@ public class Player : MonoBehaviour
     //emitters
     public ParticleSystem left_emitter;
     public ParticleSystem right_emitter;
+    public GameObject leftThrust;
+    public GameObject rightThrust;
+
 
 
 
@@ -35,7 +38,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
+        leftThrust.SetActive(false);
+        rightThrust.SetActive(false);
 
     }
 
@@ -66,33 +70,37 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.A))
         {
             rb.AddForceAtPosition(left_rocket.transform.up * thrust, left_rocket.transform.position);
             left_emitter.Play();
-            
+            leftThrust.SetActive(true);
+
 
         }
 
-        if (Input.GetKey(KeyCode.P))
+        if (Input.GetKey(KeyCode.L))
         {
             rb.AddForceAtPosition(right_rocket.transform.up * thrust, right_rocket.transform.position);
             right_emitter.Play();
-
+            rightThrust.SetActive(true);
         }
 
 
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             left_emitter.Stop();
+            leftThrust.SetActive(false);
+            
 
 
         }
 
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.L))
         {
 
             right_emitter.Stop();
+            rightThrust.SetActive(false);
 
         }
     }
