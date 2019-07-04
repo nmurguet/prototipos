@@ -9,11 +9,14 @@ public class Player : MonoBehaviour
     public float torque;
     public float thrust;
 
+    public ParticleSystem emitter;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
 
     }
 
@@ -30,22 +33,26 @@ public class Player : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.AddTorque(0.3f * torque);
+            rb.AddTorque(0.3f * torque*Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            rb.AddTorque(-0.3f * torque);
+            rb.AddTorque(-0.3f * torque * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.W))
         {
             rb.AddRelativeForce(Vector2.up * thrust*Time.deltaTime);
+            emitter.Play();
         }
         if (Input.GetKey(KeyCode.S))
         {
-            rb.AddRelativeForce(Vector2.up * (thrust / 1.85f) Time.deltaTime);
+            rb.AddRelativeForce(Vector2.up * (thrust / 1.85f)*Time.deltaTime);
         }
-
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            emitter.Stop();
+        }
         
 
   
