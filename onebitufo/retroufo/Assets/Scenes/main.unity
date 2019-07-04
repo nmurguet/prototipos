@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 185577911}
   - component: {fileID: 185577913}
   - component: {fileID: 185577912}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185577910}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.32, z: -0}
+  m_LocalPosition: {x: 0, y: -0.33, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1734402306}
@@ -774,7 +774,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0.87
-    maxNumParticles: 1000
+    maxNumParticles: 7000
     size3D: 0
     rotation3D: 0
     gravityModifier:
@@ -834,7 +834,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 21.542908
+    angle: 51.402832
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -920,7 +920,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.102432966
+      value: 0.2537639
       mode: 0
       spread: 0
       speed:
@@ -1039,7 +1039,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 300
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -3691,7 +3691,7 @@ ParticleSystem:
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.74
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -3852,7 +3852,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 55
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -5680,9 +5680,9 @@ GameObject:
   - component: {fileID: 1734402304}
   - component: {fileID: 1734402303}
   - component: {fileID: 1734402307}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ufo2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
