@@ -11,6 +11,21 @@ TextureImporter:
   - first:
       213: 820357171280843453
     second: bullet
+  - first:
+      213: -132252206849946978
+    second: particle1
+  - first:
+      213: 7891860569446221844
+    second: particle2
+  - first:
+      213: -1686137926083582823
+    second: particle3
+  - first:
+      213: 5139758094995316850
+    second: particle4
+  - first:
+      213: -6219666077209693331
+    second: damage1
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -165,7 +180,7 @@ TextureImporter:
         width: 13
         height: 54
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,6 +188,111 @@ TextureImporter:
       bones: []
       spriteID: 26d6803c7fcff4a49a35401735b97c82
       internalID: 820357171280843453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: particle1
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 317
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4d85cd3c7994af419a3b26807e5aca8
+      internalID: -132252206849946978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: particle2
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 378
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 351b033a0cef1e34ea77a94817b44306
+      internalID: 7891860569446221844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: particle3
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 338
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1702b99a8e103024d8e2ca26ca48bf0c
+      internalID: -1686137926083582823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: particle4
+      rect:
+        serializedVersion: 2
+        x: 738
+        y: 374
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22640f093a071a847957d5ffb6133c3f
+      internalID: 5139758094995316850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: damage1
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 84
+        width: 107
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb4db4f38824fb9448fe81dca1937751
+      internalID: -6219666077209693331
       vertices: []
       indices: 
       edges: []

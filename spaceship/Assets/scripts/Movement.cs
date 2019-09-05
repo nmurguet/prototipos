@@ -11,6 +11,9 @@ public class Movement : MonoBehaviour
     public float thrustForce;
     public float strafeForce;
 
+    public GameObject leftThruster;
+    public GameObject rightThruster;
+
 
     public bool rforceApplied;
     public bool forceApplied;
@@ -25,6 +28,12 @@ public class Movement : MonoBehaviour
     public float bulletSpeed = 5.0f;
 
 
+
+    // shooting variables
+    public float timeBetweenShots = 0.3333f;  // Allow 3 shots per second
+    private float timestamp;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,13 +43,18 @@ public class Movement : MonoBehaviour
         rforceApplied = false;
         forceApplied = false;
         leftStrafeApplied = false;
-        rightStrafeApplied = false; 
+        rightStrafeApplied = false;
+        leftThruster.SetActive(false);
+        rightThruster.SetActive(false);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        leftThruster.SetActive(false);
+        rightThruster.SetActive(false);
+
         leftturnApplied = false;
         rightturnApplied = false;
         rforceApplied = false;
@@ -69,7 +83,9 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
 
-            forceApplied = true; 
+            forceApplied = true;
+            leftThruster.SetActive(true);
+            rightThruster.SetActive(true);
 
 
         }
@@ -89,10 +105,11 @@ public class Movement : MonoBehaviour
 
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space)&& Time.time >= timestamp)
         {
 
             shootBullet();
+            timestamp = Time.time + timeBetweenShots; 
 
 
         }

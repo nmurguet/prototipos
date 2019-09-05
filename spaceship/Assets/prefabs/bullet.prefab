@@ -144,3 +144,5 @@ MonoBehaviour:
   speed: 1
   iTimer: 10
   timer: 0
+  exploEffect: {fileID: 1404378119090244024, guid: 5dfbc2e797694114dbc96797ab1e7529,
+    type: 3}

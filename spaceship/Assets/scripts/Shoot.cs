@@ -11,6 +11,8 @@ public class Shoot : MonoBehaviour
     public float iTimer = 3f;
     public float timer = 0f; 
 
+    public GameObject exploEffect; 
+
     private Vector2 screenBounds; 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +34,18 @@ public class Shoot : MonoBehaviour
 
         }
         
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {   
+        if(collision.gameObject.tag != "Player")
+        { 
+            Destroy(gameObject);
+            GameObject b = Instantiate(exploEffect) as GameObject;
+            b.transform.position = this.transform.position;
+            b.transform.rotation = this.transform.rotation;
+            Destroy(b, 0.3f);
+        }
+
     }
 }
