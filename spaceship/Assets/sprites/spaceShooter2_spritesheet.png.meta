@@ -5,6 +5,12 @@ TextureImporter:
   - first:
       213: 4446017328694809400
     second: ship2
+  - first:
+      213: 5724514968118493505
+    second: asteroid8
+  - first:
+      213: 8179463517782934015
+    second: satellite
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -117,7 +123,7 @@ TextureImporter:
         width: 135
         height: 84
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -125,6 +131,48 @@ TextureImporter:
       bones: []
       spriteID: cf8f371c277a0944a837f4c92608529a
       internalID: 4446017328694809400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: asteroid8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 513
+        width: 220
+        height: 222
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c7a39fa3eb346a4987f422a7f4e118f
+      internalID: 5724514968118493505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: satellite
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 314
+        width: 167
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 451d73c04721b574c81c2c3517acbb5b
+      internalID: 8179463517782934015
       vertices: []
       indices: 
       edges: []

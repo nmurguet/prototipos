@@ -15,6 +15,10 @@ public class Movement : MonoBehaviour
     public GameObject rightThruster;
 	public GameObject bleftThruster;
 	public GameObject brightThruster;
+    public GameObject leftStrafeThruster;
+    public GameObject rightStrafeThruster;
+    public GameObject bleftStrafeThruster;
+    public GameObject brightStrafeThruster;
 
 
     public bool rforceApplied;
@@ -50,6 +54,10 @@ public class Movement : MonoBehaviour
         rightThruster.SetActive(false);
 		bleftThruster.SetActive(false);
 		brightThruster.SetActive(false);
+        leftStrafeThruster.SetActive(false);
+        rightStrafeThruster.SetActive(false);
+        bleftStrafeThruster.SetActive(false);
+        brightStrafeThruster.SetActive(false);
 
     }
 
@@ -60,6 +68,10 @@ public class Movement : MonoBehaviour
         rightThruster.SetActive(false);
 		bleftThruster.SetActive(false);
 		brightThruster.SetActive(false);
+        leftStrafeThruster.SetActive(false);
+        rightStrafeThruster.SetActive(false);
+        bleftStrafeThruster.SetActive(false);
+        brightStrafeThruster.SetActive(false);
 
         leftturnApplied = false;
         rightturnApplied = false;
@@ -106,14 +118,19 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.E))
         {
 
-            leftStrafeApplied = true; 
+            leftStrafeApplied = true;
+            leftStrafeThruster.SetActive(true);
+            bleftStrafeThruster.SetActive(true);
 
 
         }
         if (Input.GetKey(KeyCode.Q))
         {
 
-            rightStrafeApplied = true; 
+            rightStrafeApplied = true;
+            
+            rightStrafeThruster.SetActive(true);
+            brightStrafeThruster.SetActive(true);
 
 
         }
