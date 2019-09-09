@@ -41,8 +41,7 @@ public class Enemy : MonoBehaviour
 
         if (onTarget)
         {
-            Debug.Log("tengo un enemigo");
-            EnemyPatrol();
+           
 
         }
 
@@ -51,7 +50,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag != "Player")
+        if (collision.gameObject.tag == "Player")
         {
             target = collision.transform;
             onTarget = true;
