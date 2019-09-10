@@ -18,11 +18,15 @@ public class Enemy : MonoBehaviour
 
     public float maxSpeed;
 
+    private float p_maxSpeed; 
+
     public float randomNumber;
 
 
     public float smooth;
     private float zVelocity = 0f;
+
+    public float s_distance; 
 
 
 
@@ -30,12 +34,20 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         erb = GetComponent<Rigidbody2D>();
-        onTarget = false; 
+        onTarget = false;
+        p_maxSpeed = maxSpeed; 
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (target)
+        {
+
+            s_distance = Vector3.Distance(transform.position, target.position);
+
+        }
         //maxima velocidad
         erb.velocity = Vector2.ClampMagnitude(erb.velocity, maxSpeed);
 
@@ -97,20 +109,33 @@ public class Enemy : MonoBehaviour
 
     void ChaseEnemy()
     {
-
         Vector3 dir = target.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         float z1 = Mathf.SmoothDampAngle(transform.eulerAngles.z, angle + 90f, ref zVelocity, smooth);
         transform.rotation = Quaternion.Euler(0f, 0f, z1);
+        Accelerate();
 
-   
-
-        if (Vector3.Distance(transform.position, target.position) > 0.5f)
+        if (Vector3.Distance(transform.position, target.position) > 10f)
         {
-            Accelerate();
+            maxSpeed = 20;
+            
+            
+        }
+
+
+        if (Vector3.Distance(transform.position, target.position) < 7f)
+        {
+            
+            maxSpeed = maxSpeed - 1.5f * Time.deltaTime;
+            if (maxSpeed == p_maxSpeed)
+            {
+                maxSpeed = p_maxSpeed;
+            }
+
+
 
         }
-        
+
 
 
     }
