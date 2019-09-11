@@ -17,8 +17,11 @@ public class Enemy : MonoBehaviour
    
 
     public float maxSpeed;
+    public float p_setSpeed;
 
     private float p_maxSpeed; 
+
+
 
     public float randomNumber;
 
@@ -115,19 +118,23 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, z1);
         Accelerate();
 
-        if (Vector3.Distance(transform.position, target.position) > 10f)
+        if (Vector3.Distance(transform.position, target.position) >= 10f)
         {
-            maxSpeed = 20;
-            
-            
+            maxSpeed = maxSpeed + 2.5f * Time.deltaTime;
+            if (maxSpeed > p_setSpeed)
+            {
+                maxSpeed = p_setSpeed;
+            }
+
+
         }
 
 
-        if (Vector3.Distance(transform.position, target.position) < 7f)
+        if (Vector3.Distance(transform.position, target.position) < 10f)
         {
             
-            maxSpeed = maxSpeed - 1.5f * Time.deltaTime;
-            if (maxSpeed == p_maxSpeed)
+            maxSpeed = maxSpeed - 2.5f * Time.deltaTime;
+            if (maxSpeed < p_maxSpeed)
             {
                 maxSpeed = p_maxSpeed;
             }
