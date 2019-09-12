@@ -9946,8 +9946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnForce: 100
-  thrustForce: -100
-  strafeForce: -50
+  thrustForce: -200
+  strafeForce: -150
   leftThruster: {fileID: 965159000}
   rightThruster: {fileID: 883732064}
   bleftThruster: {fileID: 472087593}
@@ -9980,7 +9980,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.2
   m_AngularDrag: 0.2
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -10313,7 +10313,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -15235,7 +15235,7 @@ MonoBehaviour:
   m_Follow: {fileID: 347283103}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 10
+    OrthographicSize: 20
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
