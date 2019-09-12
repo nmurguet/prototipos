@@ -9946,8 +9946,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnForce: 100
-  thrustForce: -200
-  strafeForce: -150
+  thrustForce: -300
+  strafeForce: -250
   leftThruster: {fileID: 965159000}
   rightThruster: {fileID: 883732064}
   bleftThruster: {fileID: 472087593}
@@ -15434,7 +15434,7 @@ MonoBehaviour:
   maxSpeed: 1
   p_setSpeed: 15
   randomNumber: 0
-  smooth: 0.3
+  smooth: 0.1
   s_distance: 0
 --- !u!1 &883732064
 GameObject:
