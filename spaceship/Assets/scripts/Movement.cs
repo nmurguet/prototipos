@@ -34,6 +34,9 @@ public class Movement : MonoBehaviour
     public float bulletSpeed = 5.0f;
 
 
+    public float max_speed; 
+
+
 
     // shooting variables
     public float timeBetweenShots = 0.3333f;  // Allow 3 shots per second
@@ -147,7 +150,7 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, max_speed);
         Move();
     }
 

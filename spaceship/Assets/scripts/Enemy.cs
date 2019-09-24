@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour
     void EnemyPatrol()
     {
 
-        // Accelerate();
+         Accelerate();
 
         randomNumber = Random.Range(0.5f, 100f);
 
