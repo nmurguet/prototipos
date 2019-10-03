@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool keyboard = false;
 
+    public Manager levelmanager; 
+
 
 
     // Start is called before the first frame update
@@ -161,6 +163,23 @@ public class PlayerMovement : MonoBehaviour
 
         facingRight = !facingRight;
         transform.Rotate(0f, 180f, 0f);
+
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Respawn")
+        {
+            
+         levelmanager.Respawn();
+        }
+    }
+
+    public void Respawn()
+    {
+        rb.velocity = new Vector2(0, 0);
+        animator.SetTrigger("respawn");
+        
 
     }
 
