@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("ySpeed", rb.velocity.y);
         animator.SetBool("isJumping", !isGrounded);
 
 
@@ -140,12 +141,14 @@ public class PlayerMovement : MonoBehaviour
     public void buttonJumpDown()
     {
         jumpPressed = true;
-        if (extraJumps > 0)
+        if (extraJumps > 0 && !isGrounded)
         {
             rb.velocity = Vector2.up * jumpForce * Time.deltaTime;
             extraJumps--;
+            animator.SetTrigger("doubleJump");
+
         }
-        else if (extraJumps == 0 && isGrounded)
+        else if (isGrounded)
         {
 
             rb.velocity = Vector2.up * jumpForce * Time.deltaTime;
