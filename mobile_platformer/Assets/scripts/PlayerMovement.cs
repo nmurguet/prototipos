@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    
     public float speed;
     public float jumpForce;
     private float moveInput;
@@ -31,7 +31,10 @@ public class PlayerMovement : MonoBehaviour
 
     public bool keyboard = false;
 
-    public Manager levelmanager; 
+    public Manager levelmanager;
+
+    public Transform wallCheck;
+    public bool isWall;
 
 
 
@@ -75,6 +78,8 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         animator.SetFloat("ySpeed", rb.velocity.y);
         animator.SetBool("isJumping", !isGrounded);
+        animator.SetBool("isWall", isWall);
+        
 
 
 
@@ -114,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        isWall = Physics2D.OverlapCircle(wallCheck.position, checkRadius, whatIsGround);
 
         rb.velocity = new Vector2(moveInput * speed * Time.deltaTime, rb.velocity.y);
         if (!facingRight && moveInput > 0)
