@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform wallCheck;
     public bool isWall;
 
+    public bool freezePlayer; 
 
 
     // Start is called before the first frame update
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         isJump = false;
+        freezePlayer = false; 
 
     }
 
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!freezePlayer) { 
         if (keyboard)
         {
             moveInput = Input.GetAxisRaw("Horizontal");
@@ -74,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
                 moveInput = 0f;
             }
         }
-
+        }
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         animator.SetFloat("ySpeed", rb.velocity.y);
         animator.SetBool("isJumping", !isGrounded);
@@ -113,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
             
 
         }
+
+        
 
     }
 
@@ -192,6 +197,16 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+
+
+    public void SetFreeze(bool value)
+    {
+        
+        freezePlayer = value;
+        
+
+
+    }
 
 
 }

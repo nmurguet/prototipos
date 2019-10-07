@@ -852,7 +852,7 @@ MonoBehaviour:
   extraJumpsValue: 1
   jumpPressed: 0
   isJump: 0
-  keyboard: 1
+  keyboard: 0
   levelmanager: {fileID: 487148811}
   wallCheck: {fileID: 1054041153}
   isWall: 0
