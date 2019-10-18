@@ -1909,7 +1909,7 @@ MonoBehaviour:
   t2: {fileID: 778625840}
   f1: {fileID: 804416626}
   f2: {fileID: 1672085282}
-  thrustForce: 200
+  thrustForce: 300
   torqueforce: 3000
   level: 
   goUp: 0
