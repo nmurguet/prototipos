@@ -52,6 +52,7 @@ public class ufo : MonoBehaviour
     public ParticleSystem mainParticle;
     public ParticleSystem aftermainParticle;
     public ParticleSystem slowParticle;
+    public ParticleSystem afterslowParticle;
     public ParticleSystem leftParticle;
     public ParticleSystem rightParticle;
 
@@ -204,21 +205,16 @@ public class ufo : MonoBehaviour
             aftermainParticle.Stop();
         }
 
-        /*
-        if(Input.GetKeyUp(up))
-        {
-            aftermainParticle.Emit(100);
-
-        }
-        */
 
         if (Input.GetKey(slowUp))
         {
             slowParticle.Play();
+            afterslowParticle.Play();
         }
         else
         {
             slowParticle.Stop();
+            afterslowParticle.Stop();
         }
 
         if (Input.GetKey(left))
