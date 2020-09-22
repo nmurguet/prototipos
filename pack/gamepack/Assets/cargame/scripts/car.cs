@@ -24,6 +24,12 @@ public class car : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask whatIsGround;
 
+
+    public ParticleSystem dust;
+
+
+    float _speed; 
+
     public bool accel; 
     // Start is called before the first frame update
     void Start()
@@ -40,58 +46,76 @@ public class car : MonoBehaviour
         pos.y = transform.position.y; 
 
 
-        if (Input.GetKeyUp(KeyCode.R))
-        {
-            Scene scene = SceneManager.GetActiveScene();
 
-            SceneManager.LoadScene(scene.name);
-
-        }
-
-
-
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            transform.position = new Vector3(pos.x, pos.y + 5f + transform.position.z);
-
-            Vector3 eulerRotation = transform.rotation.eulerAngles;
-            transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
-
-        }
-
-
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            accel = true;
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            accel = false;
-        }
     }
 
 
     private void FixedUpdate()
     {
+        Movement();
+
+    }
+
+    void CreateDust()
+    {
+        dust.Play(); 
+
+
+    }
+
+
+    public float Speed
+    {
+        get
+        {
+            return _speed; 
+
+        }
+    }
+
+
+    public void Movement()
+    {
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, max_speed);
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
+        _speed = rb.velocity.magnitude / 1000;
 
-        if (isGrounded) { 
+        if (isGrounded)
+        {
             if (accel)
-                {
+            {
                 rb.AddRelativeForce(Vector2.left * velocidad * Time.deltaTime * -1);
-           // front.useMotor = true;
-           // back.useMotor = true;
-                }
+                CreateDust();
 
-            else
-                {
-                    front.useMotor = false;
-                    back.useMotor = false;
+            }
 
-                }
-                    }
+
+        }
+
+
+    }
+
+
+    public void PressGas()
+    {
+        accel = true;
+
+    }
+
+    public void LiftGas()
+    {
+        accel = false; 
+
+    }
+
+
+    public void Reset()
+    {
+        transform.position = new Vector3(pos.x, pos.y + 3f + transform.position.z);
+
+        Vector3 eulerRotation = transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(eulerRotation.x, eulerRotation.y, 0);
+        rb.velocity = Vector3.zero;
 
     }
 }

@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/menu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/cargame/scenes/proto1.unity
+    guid: 269946c708fdd214cb348d02b641f21c
+  - enabled: 1
+    path: Assets/cargame/scenes/MainMenuCar.unity
+    guid: cb71dfc09331d9e439757a8d538421cd
   m_configObjects: {}
