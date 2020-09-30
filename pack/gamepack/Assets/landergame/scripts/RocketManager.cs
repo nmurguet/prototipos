@@ -9,9 +9,11 @@ public class RocketManager : MonoBehaviour
 
     public RocketLander player;
     public Button startButton;
+    public Button restartButton;
 
     public GameObject shipExplo;
     public GameObject effectExplo;
+    public AudioSource source;
 
 
     // Start is called before the first frame update
@@ -40,6 +42,10 @@ public class RocketManager : MonoBehaviour
             Explosion();
             player.ResetCrashed(); 
             
+        }
+        if(player.Touch)
+        {
+            StartCoroutine(WaitandButton(2));
         }
         
     }
@@ -78,7 +84,24 @@ public class RocketManager : MonoBehaviour
         player.gameObject.SetActive(false);
         Instantiate(shipExplo, player.transform.position, Quaternion.identity);
         Instantiate(effectExplo, player.transform.position, Quaternion.identity);
+        source.Play(); 
         //shipExplo.GetComponent<ExplodingShip>().Explode(); 
+
+    }
+
+    public void ExitGame()
+    {
+
+
+        SceneManager.LoadScene("menu");
+
+    }
+
+
+    IEnumerator WaitandButton(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        restartButton.gameObject.SetActive(true);
 
     }
 }

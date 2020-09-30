@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/cargame/scenes/MainMenuCar.unity
     guid: cb71dfc09331d9e439757a8d538421cd
+  - enabled: 1
+    path: Assets/landergame/scene/LanderGame.unity
+    guid: a8f2cbd1f4e02ab42a55f7dbdab82157
+  - enabled: 1
+    path: Assets/planegame/scene/PlaneMain.unity
+    guid: 7d5cf93f5093f5045b25eb9002d1efd1
+  - enabled: 1
+    path: Assets/cannongame/scene/mainCannon.unity
+    guid: e90282d553deff5459856b874520b204
   m_configObjects: {}

@@ -24,6 +24,25 @@ public class GameSelector : MonoBehaviour
         SceneManager.LoadScene("MainMenuCar");
     }
 
+    public void RocketGame()
+    {
+
+        SceneManager.LoadScene("LanderGame");
+    }
+
+    public void PlaneGame()
+    {
+
+        SceneManager.LoadScene("PlaneMain");
+    }
+
+    public void AnimalGame()
+    {
+
+        SceneManager.LoadScene("mainCannon");
+    }
+
+
     public void ExitGame()
     {
         Application.Quit();
