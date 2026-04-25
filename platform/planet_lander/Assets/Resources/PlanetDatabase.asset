@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8964a7b2b461b04ab667710e338da34, type: 3}
+  m_Name: PlanetDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::PlanetDatabase
+  planets:
+  - name: Terra
+    position: {x: 0, y: 0}
+    radius: 4800
+    atmosphereRadius: 9600
+    surfaceGravity: 215
+    atmosphereDrag: 1
+    roughness: 0.1
+    terrainStyle: 1
+    color: {r: 0.22, g: 0.62, b: 0.3, a: 1}
+    padCount: 6
+  - name: Vulcan
+    position: {x: 35000, y: -27500}
+    radius: 2800
+    atmosphereRadius: 5000
+    surfaceGravity: 310
+    atmosphereDrag: 0.4
+    roughness: 0.24
+    terrainStyle: 2
+    color: {r: 0.82, g: 0.22, b: 0.12, a: 1}
+    padCount: 3
+  - name: Glacius
+    position: {x: -40000, y: 12500}
+    radius: 6200
+    atmosphereRadius: 12800
+    surfaceGravity: 145
+    atmosphereDrag: 1.5
+    roughness: 0.06
+    terrainStyle: 0
+    color: {r: 0.52, g: 0.78, b: 0.95, a: 1}
+    padCount: 5
+  - name: Dust
+    position: {x: 17500, y: 37500}
+    radius: 3600
+    atmosphereRadius: 7000
+    surfaceGravity: 190
+    atmosphereDrag: 0.7
+    roughness: 0.16
+    terrainStyle: 1
+    color: {r: 0.8, g: 0.55, b: 0.22, a: 1}
+    padCount: 3
+  - name: Shadow
+    position: {x: -27500, y: -35000}
+    radius: 2400
+    atmosphereRadius: 4200
+    surfaceGravity: 350
+    atmosphereDrag: 0.28
+    roughness: 0.2
+    terrainStyle: 2
+    color: {r: 0.28, g: 0.22, b: 0.4, a: 1}
+    padCount: 3
+  - name: Iris
+    position: {x: 5000, y: -52000}
+    radius: 3200
+    atmosphereRadius: 6500
+    surfaceGravity: 110
+    atmosphereDrag: 1.8
+    roughness: 0.05
+    terrainStyle: 0
+    color: {r: 0.55, g: 0.3, b: 0.88, a: 1}
+    padCount: 4
+  - name: Ferro
+    position: {x: 50000, y: 18000}
+    radius: 1600
+    atmosphereRadius: 2600
+    surfaceGravity: 480
+    atmosphereDrag: 0.15
+    roughness: 0.3
+    terrainStyle: 2
+    color: {r: 0.62, g: 0.65, b: 0.7, a: 1}
+    padCount: 2
+  - name: Verdant
+    position: {x: -18000, y: 54000}
+    radius: 5200
+    atmosphereRadius: 10500
+    surfaceGravity: 175
+    atmosphereDrag: 1.2
+    roughness: 0.11
+    terrainStyle: 1
+    color: {r: 0.3, g: 0.75, b: 0.42, a: 1}
+    padCount: 4
