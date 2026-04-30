@@ -59,6 +59,8 @@ public class LevelManager : MonoBehaviour
 
         _starsGO = FindFirstObjectByType<ParallaxStars>()?.gameObject;
 
+        GameState.Instance?.SetTotalPads(_pads.Count);
+
         CameraController.Instance?.SetShip(Ship);
         HUDManager.Instance?.SetShip(Ship);
     }
@@ -109,7 +111,10 @@ public class LevelManager : MonoBehaviour
             planet.Initialize(cfg);
             _planets.Add(planet);
 
-            foreach (int idx in planet.FindFlatZones(cfg.padCount))
+            int[] padIndices = planet.FindFlatZones(cfg.padCount);
+            planet.FlattenForPads(padIndices);   // level terrain before placing pads
+
+            foreach (int idx in padIndices)
             {
                 var padGO = new GameObject($"Pad_{cfg.name}_{idx}");
                 padGO.transform.SetParent(go.transform);
@@ -118,6 +123,8 @@ public class LevelManager : MonoBehaviour
                 _pads.Add(pad);
             }
         }
+
+        GameState.Instance?.SetTotalPads(_pads.Count);
     }
 
     static readonly Vector2[] PickupPositions =
@@ -150,6 +157,8 @@ public class LevelManager : MonoBehaviour
         _shipGO.AddComponent<PolygonCollider2D>(); // must exist before ShipController.Awake
         _shipGO.AddComponent<ShipRenderer>();
         _shipGO.AddComponent<EngineSmoke>();
+        _shipGO.AddComponent<AtmosphericEntry>();
+        _shipGO.AddComponent<TrajectoryPredictor>();
         Ship = _shipGO.AddComponent<ShipController>();
 
         // Spawn above Terra

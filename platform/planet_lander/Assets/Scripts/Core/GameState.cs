@@ -7,6 +7,7 @@ public class GameState : MonoBehaviour
 
     public int  Score      { get; private set; }
     public int  PadsLanded { get; private set; }
+    public int  TotalPads  { get; private set; }
     public bool IsAlive    { get; private set; } = true;
 
     readonly List<Planet> _planets = new List<Planet>();
@@ -42,14 +43,16 @@ public class GameState : MonoBehaviour
         return dir.magnitude - p.GetSurfaceRadiusAt(Mathf.Atan2(dir.y, dir.x));
     }
 
-    public void AddScore(int pts)         => Score += pts;
-    public void IncrementPadsLanded()     => PadsLanded++;
-    public void SetAlive(bool alive)      => IsAlive = alive;
+    public void AddScore(int pts)          => Score += pts;
+    public void IncrementPadsLanded()      => PadsLanded++;
+    public void SetAlive(bool alive)       => IsAlive = alive;
+    public void SetTotalPads(int n)        => TotalPads = n;
 
     public void Reset()
     {
         Score      = 0;
         PadsLanded = 0;
         IsAlive    = true;
+        // TotalPads is NOT reset — it's set once per level build, not per life.
     }
 }

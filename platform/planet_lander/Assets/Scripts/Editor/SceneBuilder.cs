@@ -82,7 +82,10 @@ public static class SceneBuilder
             var planet = go.AddComponent<Planet>();
             planet.Initialize(cfg);
 
-            foreach (int idx in planet.FindFlatZones(cfg.padCount))
+            int[] padIndices = planet.FindFlatZones(cfg.padCount);
+            planet.FlattenForPads(padIndices);   // level terrain, mesh and collider rebuilt
+
+            foreach (int idx in padIndices)
             {
                 var padGO = new GameObject($"Pad_{cfg.name}_{idx}");
                 padGO.transform.SetParent(go.transform);
@@ -115,6 +118,8 @@ public static class SceneBuilder
         ship.AddComponent<PolygonCollider2D>();
         ship.AddComponent<ShipRenderer>();
         ship.AddComponent<EngineSmoke>();
+        ship.AddComponent<AtmosphericEntry>();
+        ship.AddComponent<TrajectoryPredictor>();
         var sc = ship.AddComponent<ShipController>();
         ship.transform.position = new Vector3(0f, 4800f + 300f, 0f);
 

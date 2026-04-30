@@ -8,7 +8,10 @@ public class Planet : MonoBehaviour
     public PlanetConfig Config => _config;
 
     const int TerrainPoints = 128;
-    float[] _radii;
+
+    // Serialized so that flattened terrain from SceneBuilder is preserved in
+    // pre-built scenes. Awake() only regenerates if null (fresh runtime build).
+    [SerializeField] float[] _radii;
     float[] _phases;
 
     // Live-tunable in Inspector (override Config values at runtime)
@@ -141,9 +144,10 @@ public class Planet : MonoBehaviour
 
     void BuildCollider()
     {
-        // Push collider outward by half the line width so the outer edge of the
-        // visual line aligns exactly with the physics boundary.
-        float offset = _outlineHalfWidth;
+        // Push collider outward by the full line width so the ship stops visibly
+        // outside the terrain line, preventing any visual overlap even under
+        // physics interpenetration.
+        float offset = _outlineHalfWidth * 2f; // = full lineWidth
         var path = new Vector2[TerrainPoints];
         for (int i = 0; i < TerrainPoints; i++)
         {
@@ -151,26 +155,83 @@ public class Planet : MonoBehaviour
             float r = _radii[i] + offset;
             path[i] = new Vector2(Mathf.Cos(a) * r, Mathf.Sin(a) * r);
         }
-        GetComponent<PolygonCollider2D>().SetPath(0, path);
+        var col = GetComponent<PolygonCollider2D>();
+        col.SetPath(0, path);
+        col.sharedMaterial = new PhysicsMaterial2D("PlanetMat") { bounciness = 0f, friction = 0.5f };
     }
 
     void BuildAtmosphere()
     {
-        var shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default")
-                  ?? Shader.Find("Sprites/Default");
+        // Remove stale child if rebuilding (e.g. called from SceneBuilder).
+        var old = transform.Find("Atmosphere");
+        if (old != null) Destroy(old.gameObject);
+
+        // No atmosphere at all (Ferro, Shadow, etc. are very thin — still show something).
+        // Use custom shader when available, fall back to LineRenderer ring.
+        var shader = Shader.Find("Custom/PlanetAtmosphere");
+        if (shader != null)
+            BuildAtmosphereShader(shader);
+        else
+            BuildAtmosphereFallback();
+    }
+
+    void BuildAtmosphereShader(Shader shader)
+    {
         var go = new GameObject("Atmosphere");
         go.transform.SetParent(transform);
         go.transform.localPosition = Vector3.zero;
 
+        float r = Config.atmosphereRadius;
+
+        // Flat quad of size 2r × 2r — the shader uses UV distance from centre for shaping.
+        var mesh = new Mesh { name = "AtmoQuad" };
+        mesh.vertices  = new Vector3[] {
+            new(-r, -r, 0), new(r, -r, 0), new(r, r, 0), new(-r, r, 0) };
+        mesh.uv        = new Vector2[] {
+            new(0, 0), new(1, 0), new(1, 1), new(0, 1) };
+        mesh.triangles = new int[] { 0, 1, 2, 0, 2, 3 };
+        mesh.RecalculateNormals();
+        go.AddComponent<MeshFilter>().mesh = mesh;
+
+        var mr = go.AddComponent<MeshRenderer>();
+        mr.sortingOrder          = -1;   // behind planet body and outline
+        mr.shadowCastingMode     = UnityEngine.Rendering.ShadowCastingMode.Off;
+        mr.receiveShadows        = false;
+
+        // Tint the atmosphere toward a brighter, slightly sky-shifted version of the planet colour.
+        Color  c       = Config.color;
+        Color  atmoCol = new Color(
+            Mathf.Lerp(c.r, 0.45f, 0.28f),
+            Mathf.Lerp(c.g, 0.70f, 0.28f),
+            Mathf.Lerp(c.b, 1.00f, 0.28f),
+            0.70f);
+
+        var mat = new Material(shader);
+        // Planet surface sits at (radius / atmosphereRadius) in the shader's 0-1 dist space.
+        mat.SetColor("_AtmoColor",   atmoCol);
+        mat.SetFloat("_InnerRadius", Config.radius / Config.atmosphereRadius);
+        mat.SetFloat("_Intensity",   Mathf.Clamp(Config.atmosphereDrag * 0.9f, 0.25f, 2.0f));
+        mr.sharedMaterial = mat;
+    }
+
+    // LineRenderer ring fallback (used when Custom/PlanetAtmosphere shader is missing).
+    void BuildAtmosphereFallback()
+    {
+        var go = new GameObject("Atmosphere");
+        go.transform.SetParent(transform);
+        go.transform.localPosition = Vector3.zero;
+
+        var fallbackShader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default")
+                          ?? Shader.Find("Sprites/Default");
         const int segs = 64;
-        var lr   = go.AddComponent<LineRenderer>();
-        var c    = Config.color;
+        var lr  = go.AddComponent<LineRenderer>();
+        var c   = Config.color;
         lr.useWorldSpace = false;
         lr.loop          = true;
         lr.positionCount = segs;
-        lr.startColor    = lr.endColor  = new Color(c.r, c.g, c.b, 0.10f);
-        lr.startWidth    = lr.endWidth  = Config.atmosphereRadius * 0.06f;
-        lr.material      = new Material(shader);
+        lr.startColor    = lr.endColor = new Color(c.r, c.g, c.b, 0.10f);
+        lr.startWidth    = lr.endWidth = Config.atmosphereRadius * 0.06f;
+        lr.material      = new Material(fallbackShader);
         lr.sortingOrder  = -1;
         for (int i = 0; i < segs; i++)
         {
@@ -180,12 +241,16 @@ public class Planet : MonoBehaviour
         }
     }
 
-    // ------------------------------------------------------------------ flat-zone detection
+    // ------------------------------------------------------------------ flat-zone detection + flattening
+
+    // Keep in sync with LandingPad.PadWidth.
+    const float PadWorldWidth = 140f;
 
     public int[] FindFlatZones(int count)
     {
-        float circumference = 2f * Mathf.PI * Config.radius;
-        int   winSize       = Mathf.Max(4, Mathf.RoundToInt(54f / circumference * TerrainPoints));
+        // Window covers the full pad arc width plus a margin on each side.
+        float padArcFraction = PadWorldWidth / (2f * Mathf.PI * Config.radius);
+        int   winSize        = Mathf.Max(4, Mathf.CeilToInt(padArcFraction * TerrainPoints) + 2);
 
         var variance = new float[TerrainPoints];
         for (int i = 0; i < TerrainPoints; i++)
@@ -208,11 +273,96 @@ public class Planet : MonoBehaviour
             for (int i = 0; i < TerrainPoints; i++)
                 if (!used[i] && variance[i] < best) { best = variance[i]; bestIdx = i; }
             if (bestIdx < 0) break;
-            result.Add(bestIdx);
+
+            // Return the CENTRE of the flat window, not the start.
+            // Previously this returned bestIdx (the window start), placing the pad
+            // at the edge of the flat zone instead of the middle.
+            int centre = (bestIdx + winSize / 2) % TerrainPoints;
+            result.Add(centre);
+
             for (int d = -spacing; d <= spacing; d++)
                 used[((bestIdx + d) % TerrainPoints + TerrainPoints) % TerrainPoints] = true;
         }
         return result.ToArray();
+    }
+
+    /// <summary>
+    /// Smoothly flattens _radii at each pad centre so the landing platform
+    /// always sits on perfectly level terrain. Call this after FindFlatZones
+    /// and before building the pad GameObjects.
+    /// Also rebuilds mesh + collider so the visual matches.
+    /// </summary>
+    public void FlattenForPads(int[] padCentres)
+    {
+        if (padCentres == null || padCentres.Length == 0) return;
+
+        // How many terrain indices the pad arc covers on each side (+1 blend zone)
+        float halfArcFrac = (PadWorldWidth * 0.5f) / (2f * Mathf.PI * Config.radius);
+        int   halfIdx     = Mathf.Max(2, Mathf.CeilToInt(halfArcFrac * TerrainPoints) + 1);
+        int   blendExtra  = Mathf.Max(2, halfIdx);   // smooth transition beyond flat zone
+
+        foreach (int centre in padCentres)
+        {
+            // Average the radii inside the flat zone
+            int   total = halfIdx * 2 + 1;
+            float sum   = 0f;
+            for (int d = -halfIdx; d <= halfIdx; d++)
+                sum += _radii[((centre + d) % TerrainPoints + TerrainPoints) % TerrainPoints];
+            float avg = sum / total;
+
+            // Flat zone: lerp fully to avg
+            for (int d = -halfIdx; d <= halfIdx; d++)
+            {
+                int idx = ((centre + d) % TerrainPoints + TerrainPoints) % TerrainPoints;
+                _radii[idx] = avg;
+            }
+
+            // Blend zone on each side: smooth transition to original terrain
+            for (int d = 1; d <= blendExtra; d++)
+            {
+                float t = 1f - Mathf.SmoothStep(0f, 1f, (float)d / (blendExtra + 1));
+                int idxL = ((centre - halfIdx - d) % TerrainPoints + TerrainPoints) % TerrainPoints;
+                int idxR = ((centre + halfIdx + d) % TerrainPoints + TerrainPoints) % TerrainPoints;
+                _radii[idxL] = Mathf.Lerp(_radii[idxL], avg, t);
+                _radii[idxR] = Mathf.Lerp(_radii[idxR], avg, t);
+            }
+        }
+
+        RefreshGeometry();
+    }
+
+    // Rebuilds mesh vertices, outline LR positions, and collider from current _radii.
+    // Safe to call multiple times — does not create new components.
+    void RefreshGeometry()
+    {
+        // Mesh vertices (topology/triangles unchanged)
+        var mesh = GetComponent<MeshFilter>()?.sharedMesh;
+        if (mesh != null)
+        {
+            var verts = new Vector3[TerrainPoints + 1];
+            verts[0] = Vector3.zero;
+            for (int i = 0; i < TerrainPoints; i++)
+            {
+                float a = i * Mathf.PI * 2f / TerrainPoints;
+                verts[i + 1] = new Vector3(Mathf.Cos(a) * _radii[i], Mathf.Sin(a) * _radii[i], 0f);
+            }
+            mesh.vertices = verts;
+            mesh.RecalculateNormals();
+        }
+
+        // Outline LineRenderer (on this GO, not a child)
+        var lr = GetComponent<LineRenderer>();
+        if (lr != null)
+        {
+            for (int i = 0; i < TerrainPoints; i++)
+            {
+                float a = i * Mathf.PI * 2f / TerrainPoints;
+                lr.SetPosition(i, new Vector3(Mathf.Cos(a) * _radii[i], Mathf.Sin(a) * _radii[i], 0f));
+            }
+        }
+
+        // Collider (reuse BuildCollider which already handles offset)
+        BuildCollider();
     }
 
     // ------------------------------------------------------------------ gravity + drag

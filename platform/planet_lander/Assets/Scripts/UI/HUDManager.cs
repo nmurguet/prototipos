@@ -70,16 +70,34 @@ public class HUDManager : MonoBehaviour
         float sw = Screen.width;
         float sh = Screen.height;
 
-        // Score
-        GUI.Label(Rect(sw * 0.5f - 120f, 10f, 240f, 36f),
-            $"SCORE  {GameState.Instance?.Score ?? 0}",
+        // Score + pads counter (top-centre)
+        int score      = GameState.Instance?.Score      ?? 0;
+        int padsLanded = GameState.Instance?.PadsLanded ?? 0;
+        int totalPads  = GameState.Instance?.TotalPads  ?? 0;
+
+        GUI.Label(Rect(sw * 0.5f - 160f, 8f, 320f, 32f),
+            $"SCORE  {score}",
             Style(26, TextAnchor.MiddleCenter, Color.white));
+
+        // Pads progress bar — small row below the score
+        Color padFill = padsLanded >= totalPads && totalPads > 0
+            ? new Color(0.3f, 1f, 0.4f)   // all done → bright green
+            : new Color(0.25f, 0.75f, 1f);
+        float padRatio = totalPads > 0 ? (float)padsLanded / totalPads : 0f;
+        float barW = 180f;
+        float barX = sw * 0.5f - barW * 0.5f;
+        DrawBar(new Rect(barX, 44f, barW, 14f), padRatio, padFill, $"PADS  {padsLanded}/{totalPads}", 100f);
 
         // Fuel bar
         DrawBar(new Rect(20f, sh - 60f, 200f, 22f), _ship.Fuel / 100f, FuelColor(_ship.Fuel), "FUEL");
 
         // Hull bar
         DrawBar(new Rect(20f, sh - 90f, 200f, 22f), _ship.Hull / 100f, HullColor(_ship.Hull), "HULL");
+
+        // Controls hint (bottom-right, small)
+        var hint = Style(11, TextAnchor.LowerRight, new Color(0.5f, 0.5f, 0.5f));
+        GUI.Label(Rect(sw - 210f, sh - 70f, 200f, 65f),
+            "W  thrust\nQ/E  lateral\nA/D  rotate\nTAB  trajectory\nR  restart", hint);
 
         // Speed & Altitude
         var infoSt = Style(15, TextAnchor.UpperLeft, new Color(0.8f, 0.8f, 0.8f));
@@ -136,14 +154,14 @@ public class HUDManager : MonoBehaviour
             normal    = { textColor = color },
         };
 
-    void DrawBar(Rect r, float t, Color fill, string label)
+    void DrawBar(Rect r, float t, Color fill, string label, float labelWidth = 50f)
     {
         GUI.color = new Color(0.15f, 0.15f, 0.15f);
         GUI.DrawTexture(r, Texture2D.whiteTexture);
         GUI.color = fill;
         GUI.DrawTexture(new Rect(r.x, r.y, r.width * Mathf.Clamp01(t), r.height), Texture2D.whiteTexture);
         GUI.color = Color.white;
-        GUI.Label(new Rect(r.x + r.width + 6f, r.y, 50f, r.height), label,
+        GUI.Label(new Rect(r.x + r.width + 6f, r.y, labelWidth, r.height), label,
             Style(11, TextAnchor.MiddleLeft, Color.white));
     }
 

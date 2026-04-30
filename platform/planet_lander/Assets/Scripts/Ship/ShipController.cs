@@ -54,7 +54,7 @@ public class ShipController : MonoBehaviour
         // visually at high speed regardless of framerate vs physics rate mismatch.
         Rb.interpolation  = RigidbodyInterpolation2D.Interpolate;
 
-        var pm = new PhysicsMaterial2D("ShipMat") { bounciness = 0f, friction = 0f };
+        var pm = new PhysicsMaterial2D("ShipMat") { bounciness = 0f, friction = 0.5f };
         GetComponent<Collider2D>().sharedMaterial = pm;
 
         _smoke = GetComponent<EngineSmoke>();
@@ -64,7 +64,16 @@ public class ShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsDead || IsLanded) return;
+        if (IsDead) return;
+
+        if (IsLanded)
+        {
+            // Still check for takeoff input even while landed.
+            // (ApplyThrust is skipped entirely when kinematic, so we handle it here.)
+            if (_inputThrust || _inputLeft || _inputRight) TakeOff();
+            return;
+        }
+
         ApplyGravity();
         ApplyThrust();
         ClampSpeed();
@@ -100,7 +109,6 @@ public class ShipController : MonoBehaviour
             ConsumeFuel(thrustLatFuel * Time.fixedDeltaTime);
         }
 
-        if (IsLanded && (_inputThrust || _inputLeft || _inputRight)) TakeOff();
     }
 
     void ConsumeFuel(float amount)
@@ -124,6 +132,9 @@ public class ShipController : MonoBehaviour
             _inputRight  = kb.eKey.isPressed;
             _inputRotL   = kb.aKey.isPressed;
             _inputRotR   = kb.dKey.isPressed;
+
+            // R = reinicio de emergencia (nave trabada, etc.)
+            if (kb.rKey.wasPressedThisFrame) TriggerDeath();
         }
 
         if (_noFuelWarning && Fuel <= 0f)
@@ -228,13 +239,24 @@ public class ShipController : MonoBehaviour
         else TriggerDeath();
     }
 
+    // How far the ship centre sits above the pad surface (= NozzY magnitude + 1u clearance)
+    const float ShipBottomLocal = 14f;
+
     void DoLanding(LandingPad pad, bool clean)
     {
-        IsLanded             = true;
-        _currentPad          = pad;
-        Rb.linearVelocity    = Vector2.zero;
-        Rb.angularVelocity   = 0f;
-        Rb.isKinematic       = true;
+        IsLanded           = true;
+        _currentPad        = pad;
+        Rb.linearVelocity  = Vector2.zero;
+        Rb.angularVelocity = 0f;
+        Rb.isKinematic     = true;
+
+        // Snap the ship onto the pad surface so it never floats above it.
+        // The ship's visual bottom is NozzY = -13 in local space; ShipBottomLocal
+        // positions the centre just above the platform line.
+        transform.SetPositionAndRotation(
+            pad.GetLandingPosition(ShipBottomLocal),
+            pad.GetLandingRotation());
+
         pad.OnLanded(this, clean);
     }
 
@@ -268,6 +290,8 @@ public class ShipController : MonoBehaviour
     {
         if (IsDead) return;
         IsDead = true;
+        _noFuelWarning = false;
+        HUDManager.Instance?.HideNoFuelWarning();
         GameState.Instance?.SetAlive(false);
         LevelManager.Instance?.SpawnExplosion(transform.position, true);
         LevelManager.Instance?.ScheduleRestart(1.6f);
@@ -284,6 +308,7 @@ public class ShipController : MonoBehaviour
         Hull               = 100f;
         _noFuelWarning     = false;
         _graceTimer        = 0f;
+        HUDManager.Instance?.HideNoFuelWarning();
         _currentPad        = null;
         Rb.isKinematic     = false;
         Rb.linearVelocity  = Vector2.zero;

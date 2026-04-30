@@ -35,10 +35,15 @@ public class ShipRenderer : MonoBehaviour
         var shader = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default")
                   ?? Shader.Find("Sprites/Default");
 
-        // Collider was pre-added by LevelManager; just set the shape
+        // Collider matches the visual hull exactly (pentagon including nozzle section)
+        // so the ship never visually clips into terrain before the physics boundary fires.
         var col = gameObject.GetComponent<PolygonCollider2D>();
         col.SetPath(0, new Vector2[] {
-            new Vector2(0, NoseY), new Vector2(WingX, WingY), new Vector2(-WingX, WingY)
+            new Vector2(    0,  NoseY),
+            new Vector2( WingX, WingY),
+            new Vector2( NozzX, NozzY),
+            new Vector2(-NozzX, NozzY),
+            new Vector2(-WingX, WingY),
         });
 
         _hull = MakeLR("Hull", HullShape.Length, new Color(0.90f, 0.90f, 0.90f), 1.6f, 2, shader);
